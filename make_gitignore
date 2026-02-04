@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Makes global ~/.gitignore file. Existing file is overwritten without warning
+# or backup!
+#
+# Latest revision: 2026-02-04
+#
+# Created and unlicensed by Mystikos Nikolaos <mystikos@nikolaos.org>
+# please read LICENSE file for details.
+
+# Stop and exit on first error.
+set -e
+
+ignore_list="windows,linux,git,vim"
+gitignore_url="https://www.toptal.com/developers/gitignore/api/$ignore_list"
+gitignore_file="$HOME/.gitignore"
+
+write_log() {
+    echo "$0 : ${FUNCNAME[1]}()"
+}
+
+make_gitignore_file() {
+    write_log
+    curl "$gitignore_url" -o "$gitignore_file"
+}
+
+main() {
+    write_log
+    make_gitignore_file
+}
+
+main

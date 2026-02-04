@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Makes global Git configuration file with my settings and prints the current
+# global git config. Existing file is overwritten without warning or backup!
+#
+# Latest revision: 2026-02-04
+#
+# Created and unlicensed by Mystikos Nikolaos <mystikos@nikolaos.org>
+# please read LICENSE file for details.
+
+# Stop and exit on first error.
+set -e
+
+code_excludes_file="~/.gitignore"
+commit_gpgsign="true"
+core_autocrlf="true" # Set "false" for Linux, TODO: detect OS to autoset this.
+core_editor="vim"
+gpg_format="ssh"
+pull_rebase="false"
+push_auto_setup_remote="true"
+user_email="mystikos@nikolaos.org"
+user_name="Mystikos Nikolaos"
+user_signingkey="~/.ssh/id_ed25519.pub"
+
+write_log() {
+    echo "$0 : ${FUNCNAME[1]}()"
+}
+
+make_gitconfig_file() {
+    write_log
+    git config --global commit.gpgsign "$commit_gpgsign"
+    git config --global core.autocrlf "$core_autocrlf"
+    git config --global core.editor "$core_editor"
+    git config --global core.excludesFile "$code_excludes_file"
+    git config --global gpg.format "$gpg_format"
+    git config --global pull.rebase "$pull_rebase"
+    git config --global push.autoSetupRemote "$push_auto_setup_remote"
+    git config --global user.email "$user_email"
+    git config --global user.name "$user_name"
+    git config --global user.signingkey "$user_signingkey"
+}
+
+main() {
+    write_log
+    make_gitconfig_file
+    git config --global --list
+}
+
+main
