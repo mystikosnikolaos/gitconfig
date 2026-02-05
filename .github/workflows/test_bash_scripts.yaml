@@ -1,0 +1,55 @@
+# Tests shell scripts included in the repository.
+#
+# Latest revision: 2026-02-05
+#
+# Created and unlicensed by Mystikos Nikolaos <mystikos@nikolaos.org>;
+# please read UNLICENSE file for details.
+
+name: Test Bash scripts
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x ./make_gitconfig ./make_gitignore
+
+      - name: Remove existing ~/.gitconfig and ~/.gitignore (if any)
+        run: |
+          rm -f ~/.gitconfig ~/.gitignore
+          echo "Previous ~/.gitconfig and ~/.gitignore removed (if any)."
+
+      - name: Run make_gitconfig script
+        run: |
+          ./make_gitconfig
+          echo "Script make_gitconfig was executed succesfully."
+
+      - name: Verify ~/.gitconfig exists
+        run: |
+          if [ -f ~/.gitconfig ]; then
+            echo "~/.gitconfig file was succesfully created."
+          else
+            echo "ERROR: ~/.gitconfig file was not created!"
+            exit 1
+          fi
+
+      - name: Run make_gitignore script
+        run: |
+          ./make_gitignore
+          echo "Script make_gitignore was executed succesfully."
+
+      - name: Verify ~/.gitignore exists
+        run: |
+          if [ -f ~/.gitignore ]; then
+            echo "~/.gitignore file was succesfully created."
+          else
+            echo "ERROR: ~/.gitignore file was not created!"
+            exit 1
+          fi
