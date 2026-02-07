@@ -3,10 +3,10 @@
 # Makes global Git configuration file with my settings and prints the current
 # global git config. Existing file is overwritten without warning or backup!
 #
-# Latest revision: 2026-02-04
+# Latest revision: 2026-02-07
 #
-# Created and unlicensed by Mystikos Nikolaos <mystikos@nikolaos.org>
-# please read LICENSE file for details.
+# Created and unlicensed by Mystikos Nikolaos <mystikos@nikolaos.org>;
+# please read UNLICENSE file for details.
 
 # Stop and exit on first error.
 set -e
